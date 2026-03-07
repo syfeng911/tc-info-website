@@ -98,7 +98,7 @@ export function HeroSection() {
             { icon: Wrench, label: "遠端即時支援" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-white/70">
-              <item.icon className="h-5 w-5" style={{ color: "hsl(220, 80%, 75%)" }} />
+              <item.icon className="h-5 w-5" style={{ color: "hsl(38, 95%, 68%)" }} />
               <span className="text-sm font-medium">{item.label}</span>
             </div>
           ))}
