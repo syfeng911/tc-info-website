@@ -3,6 +3,7 @@ import { ChevronDown, Shield, Clock, Wrench, ChevronLeft, ChevronRight } from "l
 import heroBg1 from "@/assets/hero-bg.jpg"
 import heroBg2 from "@/assets/hero-bg-2.jpg"
 import heroBg3 from "@/assets/hero-bg-3.jpg"
+import heroBg4 from "@/assets/hero-bg-4.jpg"
 
 const slides = [
   {
