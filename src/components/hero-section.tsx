@@ -3,6 +3,7 @@ import { ChevronDown, Shield, Clock, Wrench, ChevronLeft, ChevronRight } from "l
 import heroBg1 from "@/assets/hero-bg.jpg"
 import heroBg2 from "@/assets/hero-bg-2.jpg"
 import heroBg3 from "@/assets/hero-bg-3.jpg"
+import heroBg4 from "@/assets/hero-bg-4.jpg"
 
 const slides = [
   {
@@ -25,6 +26,13 @@ const slides = [
     title: "穩定安全的網路環境",
     subtitle: "讓企業運作更順暢",
     desc: "從防火牆設定到整體網路規劃，我們以十餘年的豐富經驗，為您打造最穩固的IT基礎設施。",
+  },
+  {
+    bg: heroBg4,
+    tag: "服務大桃園地區",
+    title: "深耕桃園在地企業",
+    subtitle: "中壢、平鎮、桃園全覆蓋",
+    desc: "十餘年深耕大桃園地區，熟悉本地中小企業的IT需求，服務涵蓋桃園區、中壢區、平鎮區及周邊，在地快速響應。",
   },
 ]
 
