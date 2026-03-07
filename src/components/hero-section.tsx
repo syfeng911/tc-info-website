@@ -47,7 +47,7 @@ export function HeroSection() {
         >
           省去高額人事成本
           <br />
-          <span className="text-primary-foreground" style={{ color: "hsl(220, 80%, 75%)" }}>專業IT團隊為您服務</span>
+          <span style={{ color: "hsl(38, 95%, 68%)" }}>專業IT團隊為您服務</span>
         </h1>
 
         <p
