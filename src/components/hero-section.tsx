@@ -240,7 +240,7 @@ export function HeroSection() {
 
         {/* LINE QR */}
         <a
-          href="https://line.me/R/ti/p/@tcinfo"
+          href="https://line.me/ti/p/3TijZwJORh"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex flex-col items-center gap-1.5"
