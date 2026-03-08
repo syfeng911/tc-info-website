@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { ChevronDown, Shield, Clock, Wrench, ChevronLeft, ChevronRight } from "lucide-react"
+import fbQr from "@/assets/fb-qr.png"
+import lineQr from "@/assets/line-qr.png"
 import heroBg1 from "@/assets/hero-bg.jpg"
 import heroBg2 from "@/assets/hero-bg-2.jpg"
 import heroBg3 from "@/assets/hero-bg-3.jpg"
