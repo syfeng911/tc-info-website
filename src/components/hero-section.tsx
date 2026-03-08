@@ -113,7 +113,7 @@ export function HeroSection() {
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all hover:bg-black/40 hover:text-white sm:right-6"
+        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all hover:bg-black/40 hover:text-white sm:right-36 lg:right-40"
         aria-label="下一張"
       >
         <ChevronRight className="h-6 w-6" />
