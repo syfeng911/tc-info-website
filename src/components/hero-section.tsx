@@ -216,7 +216,7 @@ export function HeroSection() {
       <div className="absolute right-4 top-1/2 z-20 -translate-y-1/2 flex flex-col gap-3 sm:right-6 lg:right-8">
         {/* Facebook QR */}
         <a
-          href="https://facebook.com/tcinfo911"
+          href="https://facebook.com/TCinfo911"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex flex-col items-center gap-1.5"
