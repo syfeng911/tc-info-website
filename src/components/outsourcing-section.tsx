@@ -9,6 +9,8 @@ import {
   Users,
   ShieldCheck,
 } from "lucide-react"
+import outsourcePain from "@/assets/outsource-pain.jpg"
+import outsourceBenefit from "@/assets/service-outsource.jpg"
 
 const painPoints = [
   {
@@ -66,7 +68,7 @@ export function OutsourcingSection() {
         </AnimatedSection>
 
         {/* Pain points */}
-        <div className="mb-16">
+        <div className="mb-20">
           <AnimatedSection className="mb-8 flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
               <AlertTriangle className="h-5 w-5 text-destructive" />
@@ -75,25 +77,54 @@ export function OutsourcingSection() {
               自行雇用資訊人員的痛點
             </h3>
           </AnimatedSection>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {painPoints.map((p, i) => (
-              <AnimatedSection
-                key={p.title}
-                delay={([0, 200, 400] as const)[i]}
-              >
-                <div className="rounded-xl border border-destructive/20 bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-destructive/10">
-                    <p.icon className="h-6 w-6 text-destructive" />
+
+          {/* Image + cards layout */}
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+            {/* Photo */}
+            <AnimatedSection direction="left">
+              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+                <img
+                  src={outsourcePain}
+                  alt="企業IT困境"
+                  className="h-72 w-full object-cover lg:h-96"
+                />
+                {/* Overlay badge */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="rounded-xl bg-destructive/85 px-5 py-3 backdrop-blur-sm">
+                    <p className="text-sm font-semibold text-white">
+                      💸 自聘資訊人員年均成本超過 60 萬元
+                    </p>
+                    <p className="mt-0.5 text-xs text-white/80">
+                      包含薪資、勞健保、勞退、教育訓練及管理成本
+                    </p>
                   </div>
-                  <h4 className="mb-2 text-base font-bold text-card-foreground">
-                    {p.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {p.desc}
-                  </p>
                 </div>
-              </AnimatedSection>
-            ))}
+              </div>
+            </AnimatedSection>
+
+            {/* Cards */}
+            <AnimatedSection direction="right">
+              <div className="flex flex-col gap-5">
+                {painPoints.map((p) => (
+                  <div
+                    key={p.title}
+                    className="flex items-start gap-4 rounded-xl border border-destructive/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-destructive/10">
+                      <p.icon className="h-5 w-5 text-destructive" />
+                    </div>
+                    <div>
+                      <h4 className="mb-1 text-base font-bold text-card-foreground">
+                        {p.title}
+                      </h4>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {p.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </AnimatedSection>
           </div>
         </div>
 
@@ -107,25 +138,54 @@ export function OutsourcingSection() {
               選擇天承資訊委外的優勢
             </h3>
           </AnimatedSection>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {benefits.map((b, i) => (
-              <AnimatedSection
-                key={b.title}
-                delay={([0, 200, 400] as const)[i]}
-              >
-                <div className="rounded-xl border border-primary/20 bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-md">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <b.icon className="h-6 w-6 text-primary" />
+
+          {/* Cards + Photo layout (reversed) */}
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+            {/* Cards */}
+            <AnimatedSection direction="left">
+              <div className="flex flex-col gap-5">
+                {benefits.map((b) => (
+                  <div
+                    key={b.title}
+                    className="flex items-start gap-4 rounded-xl border border-primary/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <b.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="mb-1 text-base font-bold text-card-foreground">
+                        {b.title}
+                      </h4>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {b.desc}
+                      </p>
+                    </div>
                   </div>
-                  <h4 className="mb-2 text-base font-bold text-card-foreground">
-                    {b.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {b.desc}
-                  </p>
+                ))}
+              </div>
+            </AnimatedSection>
+
+            {/* Photo */}
+            <AnimatedSection direction="right">
+              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+                <img
+                  src={outsourceBenefit}
+                  alt="天承資訊委外服務"
+                  className="h-72 w-full object-cover lg:h-96"
+                />
+                {/* Overlay badge */}
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="rounded-xl bg-primary/85 px-5 py-3 backdrop-blur-sm">
+                    <p className="text-sm font-semibold text-primary-foreground">
+                      ✅ 專業團隊，每月只需自聘費用的十分之一
+                    </p>
+                    <p className="mt-0.5 text-xs text-primary-foreground/80">
+                      十餘年經驗、完整文件、快速回應，讓企業安心專注本業
+                    </p>
+                  </div>
                 </div>
-              </AnimatedSection>
-            ))}
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>
