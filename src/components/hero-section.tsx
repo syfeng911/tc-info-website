@@ -212,6 +212,56 @@ export function HeroSection() {
         </div>
       </div>
 
+      {/* FB & LINE QR Code floating panel */}
+      <div className="absolute right-4 top-1/2 z-20 -translate-y-1/2 flex flex-col gap-3 sm:right-6 lg:right-8">
+        {/* Facebook QR */}
+        <a
+          href="https://facebook.com/tcinfo911"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col items-center gap-1.5"
+          aria-label="Facebook 粉絲團 QR Code"
+        >
+          <div className="relative rounded-xl overflow-hidden border-2 border-[#1877F2]/60 bg-white p-1.5 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:border-[#1877F2]"
+            style={{
+              boxShadow: "0 0 12px 3px rgba(24,119,242,0.45), 0 0 28px 6px rgba(24,119,242,0.2)"
+            }}
+          >
+            <img src={fbQr} alt="Facebook QR Code" className="h-16 w-16 sm:h-20 sm:w-20 object-contain" />
+            {/* Glow pulse ring */}
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ boxShadow: "inset 0 0 10px 2px rgba(24,119,242,0.3)" }}
+            />
+          </div>
+          <span className="rounded-full bg-[#1877F2]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+            Facebook
+          </span>
+        </a>
+
+        {/* LINE QR */}
+        <a
+          href="https://line.me/R/ti/p/@tcinfo"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col items-center gap-1.5"
+          aria-label="LINE QR Code"
+        >
+          <div className="relative rounded-xl overflow-hidden border-2 border-[#06C755]/60 bg-white p-1.5 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:border-[#06C755]"
+            style={{
+              boxShadow: "0 0 12px 3px rgba(6,199,85,0.45), 0 0 28px 6px rgba(6,199,85,0.2)"
+            }}
+          >
+            <img src={lineQr} alt="LINE QR Code" className="h-16 w-16 sm:h-20 sm:w-20 object-contain" />
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ boxShadow: "inset 0 0 10px 2px rgba(6,199,85,0.3)" }}
+            />
+          </div>
+          <span className="rounded-full bg-[#06C755]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+            LINE
+          </span>
+        </a>
+      </div>
+
       {/* Scroll indicator */}
       <button
         onClick={scrollToServices}
