@@ -118,7 +118,7 @@ export function WebsiteSection() {
                 </a>
 
                 <p className="mt-4 text-center text-xs text-muted-foreground">
-                  網域及 VPS 主機費用另計，依實際規格報價
+                  網域及 VPS 主機費用已含在年費中
                 </p>
               </div>
             </div>
