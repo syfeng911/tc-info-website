@@ -43,9 +43,9 @@ const comparisonItems = [
   },
   {
     icon: Zap,
-    category: "緊急應變能力",
-    inhouse: "單人應對，壓力大",
-    outsource: "團隊分工，快速排除障礙",
+    category: "資安防護能力",
+    inhouse: "依賴個人資安意識",
+    outsource: "專業防護，定期資安稽核",
     highlight: false,
   },
   {
