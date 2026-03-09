@@ -43,9 +43,9 @@ const comparisonItems = [
   },
   {
     icon: Zap,
-    category: "服務回應速度",
-    inhouse: "即時（但有休假）",
-    outsource: "36小時內到場 + 遠端支援",
+    category: "緊急應變能力",
+    inhouse: "單人應對，壓力大",
+    outsource: "團隊分工，快速排除障礙",
     highlight: false,
   },
   {
