@@ -61,13 +61,14 @@ export function WebsiteSection() {
 
         <div className="grid gap-10 lg:grid-cols-3 lg:gap-12 items-stretch">
           {/* Feature cards - 2/3 width */}
-          <div className="lg:col-span-2 grid gap-4 sm:grid-cols-2">
+          <div className="lg:col-span-2 grid gap-4 sm:grid-cols-2 lg:grid-rows-3 h-full">
             {features.map((f, i) => (
               <AnimatedSection
                 key={f.title}
                 delay={([0, 200, 400, 0, 200, 400] as const)[i]}
+                className="h-full"
               >
-                <div className="group flex gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30">
+                <div className="group flex h-full gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                     <f.icon className="h-5 w-5" />
                   </div>
