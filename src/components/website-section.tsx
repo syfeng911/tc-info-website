@@ -81,45 +81,49 @@ export function WebsiteSection() {
           </div>
 
           {/* Pricing card - 1/3 width */}
-          <AnimatedSection delay={200} className="lg:col-span-1 flex flex-col">
-            <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
+          <AnimatedSection delay={200} className="lg:col-span-1 h-full">
+            <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
               {/* Popular banner */}
               <div className="flex items-center justify-center gap-2 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 <Star className="h-4 w-4" />
                 超值全包方案
               </div>
 
-              <div className="p-7">
-                <p className="mb-1 text-sm font-medium text-muted-foreground">年費方案</p>
-                <div className="mb-1 flex items-baseline gap-1">
-                  <span className="text-lg text-muted-foreground">$</span>
-                  <span className="text-6xl font-bold text-primary">10,000</span>
+              <div className="flex flex-1 flex-col justify-between p-7">
+                <div>
+                  <p className="mb-1 text-sm font-medium text-muted-foreground">年費方案</p>
+                  <div className="mb-1 flex items-baseline gap-1">
+                    <span className="text-lg text-muted-foreground">$</span>
+                    <span className="text-6xl font-bold text-primary">10,000</span>
+                  </div>
+                  <p className="mb-6 text-sm text-muted-foreground">/ 年，六大服務全包含</p>
+
+                  <ul className="mb-7 flex flex-col gap-3">
+                    {included.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="mb-6 text-sm text-muted-foreground">/ 年，六大服務全包含</p>
 
-                <ul className="mb-7 flex flex-col gap-3">
-                  {included.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div>
+                  <a
+                    href="#contact"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                    }}
+                    className="block w-full rounded-full bg-primary py-3 text-center text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
+                  >
+                    立即諮詢方案
+                  </a>
 
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  className="block w-full rounded-full bg-primary py-3 text-center text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
-                >
-                  立即諮詢方案
-                </a>
-
-                <p className="mt-4 text-center text-xs text-muted-foreground">
-                  網域及 VPS 主機費用已含在年費中
-                </p>
+                  <p className="mt-4 text-center text-xs text-muted-foreground">
+                    網域及 VPS 主機費用已含在年費中
+                  </p>
+                </div>
               </div>
             </div>
           </AnimatedSection>
