@@ -73,7 +73,7 @@ const comparisonItems = [
 
 const summaryStats = [
   { label: "節省人事成本", value: "高達 90%", icon: DollarSign },
-  { label: "緊急應變能力", value: "團隊分工", icon: Zap },
+  { label: "資安防護能力", value: "專業防護", icon: Zap },
   { label: "整合專業技能", value: "全團隊", icon: BrainCircuit },
 ]
 
