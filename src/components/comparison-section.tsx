@@ -43,9 +43,9 @@ const comparisonItems = [
   },
   {
     icon: Zap,
-    category: "服務回應速度",
-    inhouse: "即時（但有休假）",
-    outsource: "36小時內到場 + 遠端支援",
+    category: "緊急應變能力",
+    inhouse: "單人應對，壓力大",
+    outsource: "團隊分工，快速排除障礙",
     highlight: false,
   },
   {
@@ -73,7 +73,7 @@ const comparisonItems = [
 
 const summaryStats = [
   { label: "節省人事成本", value: "高達 90%", icon: DollarSign },
-  { label: "服務回應時效", value: "36 小時內", icon: Zap },
+  { label: "緊急應變能力", value: "團隊分工", icon: Zap },
   { label: "整合專業技能", value: "全團隊", icon: BrainCircuit },
 ]
 
