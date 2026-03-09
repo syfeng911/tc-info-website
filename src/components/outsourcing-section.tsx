@@ -55,6 +55,51 @@ const benefits = [
   },
 ]
 
+const compareRows = [
+  {
+    icon: Banknote,
+    label: "月均費用",
+    self: "50,000＋元",
+    outsource: "數千元起",
+    selfBad: true,
+  },
+  {
+    icon: RotateCcw,
+    label: "離職交接",
+    self: "風險極高",
+    outsource: "完整文件，無縫銜接",
+    selfBad: true,
+  },
+  {
+    icon: BookOpen,
+    label: "知識累積",
+    self: "個人為主，易流失",
+    outsource: "團隊共有，持續累積",
+    selfBad: true,
+  },
+  {
+    icon: Clock,
+    label: "問題回應",
+    self: "受假期、病假影響",
+    outsource: "遠端即時＋36小時到場",
+    selfBad: true,
+  },
+  {
+    icon: Headphones,
+    label: "技術廣度",
+    self: "受限單一人員專長",
+    outsource: "多領域工程師團隊",
+    selfBad: true,
+  },
+  {
+    icon: Star,
+    label: "服務年資",
+    self: "隨人員更換歸零",
+    outsource: "十餘年深耕在地",
+    selfBad: true,
+  },
+]
+
 export function OutsourcingSection() {
   return (
     <section
@@ -72,6 +117,60 @@ export function OutsourcingSection() {
           <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
             自聘 IT 人員看似方便，卻隱含高額成本與離職交接不全的風險
           </p>
+        </AnimatedSection>
+
+        {/* ── Comparison Table ── */}
+        <AnimatedSection className="mb-20">
+          <div className="overflow-hidden rounded-2xl border border-border shadow-lg">
+            {/* Header */}
+            <div className="grid grid-cols-3 bg-muted">
+              <div className="px-4 py-4 text-sm font-semibold text-muted-foreground" />
+              <div className="flex items-center justify-center gap-2 border-l border-border px-4 py-4">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-destructive/15">
+                  <X className="h-4 w-4 text-destructive" />
+                </div>
+                <span className="text-sm font-bold text-destructive">自行雇用</span>
+              </div>
+              <div className="flex items-center justify-center gap-2 border-l border-border bg-primary/10 px-4 py-4">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/20">
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                </div>
+                <span className="text-sm font-bold text-primary">天承資訊委外</span>
+              </div>
+            </div>
+
+            {/* Rows */}
+            {compareRows.map((row, i) => (
+              <div
+                key={row.label}
+                className={`grid grid-cols-3 border-t border-border transition-colors hover:bg-muted/40 ${
+                  i % 2 === 0 ? "bg-card" : "bg-background"
+                }`}
+              >
+                {/* Label */}
+                <div className="flex items-center gap-2.5 px-4 py-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                    <row.icon className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold text-foreground">{row.label}</span>
+                </div>
+
+                {/* Self-hire */}
+                <div className="flex items-center justify-center border-l border-border px-4 py-4">
+                  <span className="text-center text-sm font-medium text-destructive/80">
+                    {row.self}
+                  </span>
+                </div>
+
+                {/* Outsource */}
+                <div className="flex items-center justify-center border-l border-border bg-primary/5 px-4 py-4">
+                  <span className="text-center text-sm font-semibold text-primary">
+                    {row.outsource}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </AnimatedSection>
 
         {/* Pain points */}
