@@ -81,8 +81,8 @@ export function WebsiteSection() {
           </div>
 
           {/* Pricing card - 1/3 width */}
-          <AnimatedSection delay={200} className="lg:col-span-1">
-            <div className="sticky top-24 overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
+          <AnimatedSection delay={200} className="lg:col-span-1 flex flex-col">
+            <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
               {/* Popular banner */}
               <div className="flex items-center justify-center gap-2 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 <Star className="h-4 w-4" />
