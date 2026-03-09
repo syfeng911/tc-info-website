@@ -38,7 +38,8 @@ const included = [
   "一次付清，省去繁瑣分期",
   "全程協助，不需技術背景",
   "一年內免費維護諮詢",
-  "SSL 到期前主動提醒續約",
+  "SSL 到期自動續約",
+  "網域及 VPS 主機費用已含",
 ]
 
 export function WebsiteSection() {
@@ -58,7 +59,7 @@ export function WebsiteSection() {
           </p>
         </AnimatedSection>
 
-        <div className="grid gap-10 lg:grid-cols-3 lg:gap-12 items-start">
+        <div className="grid gap-10 lg:grid-cols-3 lg:gap-12 items-stretch">
           {/* Feature cards - 2/3 width */}
           <div className="lg:col-span-2 grid gap-4 sm:grid-cols-2">
             {features.map((f, i) => (
@@ -80,8 +81,8 @@ export function WebsiteSection() {
           </div>
 
           {/* Pricing card - 1/3 width */}
-          <AnimatedSection delay={200} className="lg:col-span-1">
-            <div className="sticky top-24 overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
+          <AnimatedSection delay={200} className="lg:col-span-1 flex flex-col">
+            <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
               {/* Popular banner */}
               <div className="flex items-center justify-center gap-2 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 <Star className="h-4 w-4" />
@@ -117,7 +118,7 @@ export function WebsiteSection() {
                 </a>
 
                 <p className="mt-4 text-center text-xs text-muted-foreground">
-                  網域及 VPS 主機費用另計，依實際規格報價
+                  網域及 VPS 主機費用已含在年費中
                 </p>
               </div>
             </div>
