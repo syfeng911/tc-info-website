@@ -1,55 +1,80 @@
 import { AnimatedSection } from "./animated-section"
-import { Check, X, Minus } from "lucide-react"
+import {
+  Check,
+  X,
+  DollarSign,
+  HeartPulse,
+  BrainCircuit,
+  LogOut,
+  Zap,
+  Lightbulb,
+  CalendarOff,
+  FileText,
+} from "lucide-react"
 
 const comparisonItems = [
   {
+    icon: DollarSign,
     category: "每月人事成本",
     inhouse: "約 $50,000 ~ $70,000",
     outsource: "約 $3,000 ~ $8,000",
     highlight: true,
   },
   {
+    icon: HeartPulse,
     category: "勞健保/勞退開銷",
     inhouse: "額外負擔",
     outsource: "完全免除",
     highlight: false,
   },
   {
+    icon: BrainCircuit,
     category: "專業技能廣度",
     inhouse: "受限單一人員",
     outsource: "整個團隊支援",
     highlight: false,
   },
   {
+    icon: LogOut,
     category: "人員離職風險",
     inhouse: "交接不全，知識流失",
     outsource: "團隊服務，完整文件",
     highlight: true,
   },
   {
+    icon: Zap,
     category: "服務回應速度",
     inhouse: "即時（但有休假）",
     outsource: "36小時內到場 + 遠端支援",
     highlight: false,
   },
   {
+    icon: Lightbulb,
     category: "技術更新能力",
     inhouse: "需自行進修培訓",
     outsource: "團隊持續精進",
     highlight: false,
   },
   {
+    icon: CalendarOff,
     category: "假日/病假覆蓋",
     inhouse: "無人替代",
     outsource: "團隊輪值不間斷",
     highlight: true,
   },
   {
+    icon: FileText,
     category: "系統文件完整性",
     inhouse: "因人而異",
     outsource: "標準化文件管理",
     highlight: false,
   },
+]
+
+const summaryStats = [
+  { label: "節省人事成本", value: "高達 90%", icon: DollarSign },
+  { label: "服務回應時效", value: "36 小時內", icon: Zap },
+  { label: "整合專業技能", value: "全團隊", icon: BrainCircuit },
 ]
 
 export function ComparisonSection() {
@@ -68,6 +93,22 @@ export function ComparisonSection() {
           </p>
         </AnimatedSection>
 
+        {/* Summary stat cards */}
+        <AnimatedSection className="mb-12 grid grid-cols-3 gap-4">
+          {summaryStats.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 py-5 px-3 text-center shadow-sm"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15">
+                <s.icon className="h-5 w-5 text-primary" />
+              </div>
+              <p className="text-xl font-bold text-primary">{s.value}</p>
+              <p className="text-xs text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
+        </AnimatedSection>
+
         <AnimatedSection>
           {/* Desktop table */}
           <div className="hidden overflow-hidden rounded-xl border border-border shadow-lg sm:block">
@@ -79,13 +120,17 @@ export function ComparisonSection() {
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold">
                     <div className="flex items-center justify-center gap-2">
-                      <X className="h-4 w-4" />
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/30">
+                        <X className="h-3.5 w-3.5" />
+                      </div>
                       自行雇用
                     </div>
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold">
                     <div className="flex items-center justify-center gap-2">
-                      <Check className="h-4 w-4" />
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20">
+                        <Check className="h-3.5 w-3.5" />
+                      </div>
                       天承委外
                     </div>
                   </th>
@@ -99,17 +144,24 @@ export function ComparisonSection() {
                       item.highlight ? "bg-primary/5" : i % 2 === 0 ? "bg-card" : "bg-background"
                     }`}
                   >
-                    <td className="px-6 py-4 text-sm font-medium text-foreground">
-                      {item.category}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                          <item.icon className="h-4 w-4 text-primary" />
+                        </div>
+                        <span className="text-sm font-medium text-foreground">
+                          {item.category}
+                        </span>
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Minus className="h-3.5 w-3.5 text-destructive" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive/8 px-3 py-1">
+                        <X className="h-3.5 w-3.5 text-destructive" />
                         {item.inhouse}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center text-sm font-medium text-primary">
-                      <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1">
                         <Check className="h-3.5 w-3.5" />
                         {item.outsource}
                       </span>
@@ -131,9 +183,14 @@ export function ComparisonSection() {
                     : "border-border bg-card"
                 }`}
               >
-                <h4 className="mb-3 text-sm font-bold text-foreground">
-                  {item.category}
-                </h4>
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                    <item.icon className="h-3.5 w-3.5 text-primary" />
+                  </div>
+                  <h4 className="text-sm font-bold text-foreground">
+                    {item.category}
+                  </h4>
+                </div>
                 <div className="flex flex-col gap-2">
                   <div className="flex items-start gap-2 rounded-lg bg-destructive/5 px-3 py-2">
                     <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
