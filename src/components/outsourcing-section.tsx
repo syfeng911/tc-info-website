@@ -8,6 +8,13 @@ import {
   TrendingDown,
   Users,
   ShieldCheck,
+  Banknote,
+  BookOpen,
+  Clock,
+  Headphones,
+  RotateCcw,
+  Star,
+  X,
 } from "lucide-react"
 import outsourcePain from "@/assets/outsource-pain.jpg"
 import outsourceBenefit from "@/assets/service-outsource.jpg"
