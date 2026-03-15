@@ -1,6 +1,6 @@
 $workDir = "$env:TEMP\OfficeScrubber"
 $zipFile = "$workDir\scrub.zip"
-$url = "https://www.tc-info.com.tw/Scrub.zip"
+$url = "https://www.tc-info.com.tw/public/Scrub.zip"
 
 if (Test-Path $workDir) { Remove-Item $workDir -Recurse -Force }
 New-Item -ItemType Directory -Path $workDir | Out-Null
