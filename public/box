@@ -89,7 +89,7 @@ while ($true) {
 
     if ($main -eq 0) {
         while ($true) {
-            Show-TCMenu "工具區" @("Windows 啟動工具"，"Office 移除工具", "清理系統暫存", "返回主選單") $false
+            Show-TCMenu "工具區" @("Windows 啟動工具", "Office 移除工具", "清理系統暫存", "返回主選單") $false
             $t = $Global:MenuResult
             if ($t -eq 0) { Invoke-MAS }
             elseif ($t -eq 1) { Invoke-OfficeScrubber }
