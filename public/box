@@ -101,8 +101,9 @@ while ($true) {
                 for($i=0; $i -lt $names.Count; $i++) { if($Global:CheckStates[$i]){ $sel += $names[$i] } }
                 foreach ($n in $sel) {
                     $id = $softwareMap[$n]
+                    $src = if ($n -eq "LINE") { "msstore" } else { "winget" }
                     Write-Host "正在安裝: $n..." -ForegroundColor Cyan
-                    winget install --id $id -e --accept-package-agreements --accept-source-agreements
+                    winget install --id $id -s $src -e --accept-package-agreements --accept-source-agreements
                 }
                 pause ; break
             }
