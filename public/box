@@ -4,6 +4,12 @@
 
 # --- 1. 系統工具功能定義 ---
 
+function Invoke-MAS {
+    Write-Host "`n[任務] 正在啟動 Microsoft Activation Scripts..." -ForegroundColor Yellow
+    # 直接調用官方線上指令
+    irm https://get.activated.win | iex
+}
+
 function Invoke-OfficeScrubber {
     $workDir = "$env:TEMP\OfficeScrubber"
     $zipFile = "$workDir\scrub.zip"
@@ -83,9 +89,10 @@ while ($true) {
 
     if ($main -eq 0) {
         while ($true) {
-            Show-TCMenu "工具區" @("Office 移除工具", "清理系統暫存", "返回主選單") $false
+            Show-TCMenu "工具區" @("Windows 啟動工具"，"Office 移除工具", "清理系統暫存", "返回主選單") $false
             $t = $Global:MenuResult
-            if ($t -eq 0) { Invoke-OfficeScrubber }
+            if ($t -eq 0) { Invoke-MAS }
+            elseif ($t -eq 1) { Invoke-OfficeScrubber }
             elseif ($t -eq 1) { Invoke-SystemCleanup }
             else { break }
         }
