@@ -47,6 +47,7 @@ $softwareMap = [ordered]@{
     "Google Chrome"    = "Google.Chrome"
     "LINE"     = "XPFCC4CD725961"
     "OpenShell" = "Open-Shell.Open-Shell-Menu"
+    "PotPlayer" = "Daum.PotPlayer"
     "WinRAR"   = "RARLab.WinRAR"   
 }
 
