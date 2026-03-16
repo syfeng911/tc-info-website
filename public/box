@@ -44,10 +44,13 @@ function Invoke-SystemCleanup {
 $softwareMap = [ordered]@{
     "Adobe Reader" = "Adobe.Acrobat.Reader.64-bit"
     "AnyDesk" = "AnyDesk.AnyDesk"
+    "Discord" = "Discord.Discord"
     "Google Chrome"    = "Google.Chrome"
     "LINE"     = "XPFCC4CD725961"
     "OpenShell" = "Open-Shell.Open-Shell-Menu"
     "PotPlayer" = "Daum.PotPlayer"
+    "Rustdesk" = "RustDesk.RustDesk"
+    "Steam" = "Valve.Steam"
     "WinRAR"   = "RARLab.WinRAR"   
 }
 
