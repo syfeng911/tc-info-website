@@ -85,7 +85,7 @@ export function OutsourcingSection() {
               <div className="relative overflow-hidden rounded-2xl shadow-xl">
                 <img
                   src={outsourcePain}
-                  alt="企業IT困境"
+                  alt="中壢企業自聘資訊人員的人事成本與交接風險痛點分析"
                   className="h-72 w-full object-cover lg:h-96"
                 />
                 {/* Overlay badge */}

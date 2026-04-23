@@ -73,7 +73,7 @@ export function ServicesSection() {
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={svc.image}
-                    alt={svc.title}
+                    alt={`${svc.title} - 天承資訊提供桃園中壢、平鎮專業服務`}
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />

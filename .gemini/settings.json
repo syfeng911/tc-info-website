@@ -1,0 +1,1 @@
+{"mcpServers": {"comfyui": {"command": "npx","args": ["-y","comfyui-mcp"],"env": {"COMFYUI_URL": "http://127.0.0.1:8188"}},"llama-local": {"command": "npx","args": ["-y","llama-mcp-server"],"env": {"LLAMA_SERVER_URL": "http://127.0.0.1:8080"}}}}
