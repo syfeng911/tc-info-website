@@ -57,21 +57,23 @@ export function Navbar() {
           {/* Logo */}
           <button
             onClick={() => handleClick("#hero")}
-            className="flex items-center gap-2"
+            className="flex items-center gap-3"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-              <Monitor className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <div>
+            <img 
+              src="/logo.png" 
+              alt="天承資訊 Logo Icon" 
+              className="h-7 w-auto sm:h-9 transition-all duration-300"
+            />
+            <div className="flex items-baseline gap-3">
               <span
-                className={`text-lg font-bold transition-colors duration-300 ${
+                className={`text-2xl font-bold transition-colors duration-300 ${
                   scrolled ? "text-foreground" : "text-white"
                 }`}
               >
                 天承資訊
               </span>
               <span
-                className={`ml-2 hidden text-xs font-light tracking-wider sm:inline ${
+                className={`text-sm font-light tracking-[0.2em] transition-colors duration-300 ${
                   scrolled ? "text-muted-foreground" : "text-white/70"
                 }`}
               >
@@ -86,7 +88,7 @@ export function Navbar() {
               <button
                 key={link.href}
                 onClick={() => handleClick(link.href)}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                className={`rounded-md px-4 py-2 text-lg font-bold transition-all duration-200 ${
                   activeSection === link.href.replace("#", "")
                     ? scrolled
                       ? "bg-primary/10 text-primary"
@@ -104,7 +106,7 @@ export function Navbar() {
           {/* CTA */}
           <a
             href="tel:0955685641"
-            className={`hidden rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 lg:block ${
+            className={`hidden rounded-full px-6 py-2.5 text-lg font-bold transition-all duration-200 lg:block ${
               scrolled
                 ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "bg-white text-foreground hover:bg-white/90"
@@ -134,7 +136,7 @@ export function Navbar() {
               <button
                 key={link.href}
                 onClick={() => handleClick(link.href)}
-                className={`rounded-md px-4 py-3 text-left text-sm font-medium transition-colors ${
+                className={`rounded-md px-4 py-3 text-left text-base font-semibold transition-colors ${
                   activeSection === link.href.replace("#", "")
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -145,7 +147,7 @@ export function Navbar() {
             ))}
             <a
               href="tel:0955685641"
-              className="mt-2 rounded-full bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              className="mt-2 rounded-full bg-primary px-5 py-3 text-center text-base font-bold text-primary-foreground hover:bg-primary/90"
             >
               立即來電
             </a>
