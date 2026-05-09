@@ -32,6 +32,18 @@ function Invoke-OfficeScrubber {
     pause
 }
 
+function Invoke-UltimatePower {
+    Write-Host "`n[任務] 正在啟用究極電源管理 (Ultimate Performance)..." -ForegroundColor Yellow
+    # 匯入卓越性能方案的 GUID
+    powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 | Out-Null
+    
+    # 將其設定為目前活動的電源方案
+    powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61
+    
+    Write-Host "成功！已開啟並切換至「卓越性能」模式。" -ForegroundColor Green
+    pause
+}
+
 function Invoke-SystemCleanup {
     Write-Host "`n[任務] 正在清理暫存檔..." -ForegroundColor Cyan
     $tempPaths = @("$env:TEMP\*", "C:\Windows\Temp\*")
@@ -93,11 +105,12 @@ while ($true) {
 
     if ($main -eq 0) {
         while ($true) {
-            Show-TCMenu "工具區" @("Windows 啟動工具", "Office 移除工具", "清理系統暫存", "返回主選單") $false
+            Show-TCMenu "工具區" @("Windows 啟動工具", "Office 移除工具", "啟用究極電源管理", "清理系統暫存", "返回主選單") $false
             $t = $Global:MenuResult
             if ($t -eq 0) { Invoke-MAS }
             elseif ($t -eq 1) { Invoke-OfficeScrubber }
-            elseif ($t -eq 1) { Invoke-SystemCleanup }
+            elseif ($t -eq 2) { Invoke-UltimatePower }
+            elseif ($t -eq 3) { Invoke-SystemCleanup }
             else { break }
         }
     } 
