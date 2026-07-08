@@ -55,12 +55,12 @@ export function OutsourcingSection() {
       className="bg-secondary py-20 lg:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="mb-16 text-center">
-          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+        <AnimatedSection className="mb-16 text-center" animation="spring">
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary transition-transform duration-300 hover:scale-110">
             為什麼選擇委外？
           </span>
           <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-            資訊委外，企業的聰明選擇
+            資訊委外，企業的<span className="text-primary">聰明</span>選擇
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
             自聘 IT 人員看似方便，卻隱含高額成本與離職交接不全的風險
@@ -69,8 +69,8 @@ export function OutsourcingSection() {
 
         {/* Pain points */}
         <div className="mb-20">
-          <AnimatedSection className="mb-8 flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
+          <AnimatedSection className="mb-8 flex items-center gap-3" animation="scale">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10 animate-icon-bounce">
               <AlertTriangle className="h-5 w-5 text-destructive" />
             </div>
             <h3 className="text-xl font-bold text-foreground">
@@ -80,17 +80,19 @@ export function OutsourcingSection() {
 
           {/* Image + cards layout */}
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-            {/* Photo */}
-            <AnimatedSection direction="left">
-              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+            {/* Photo with hover zoom */}
+            <AnimatedSection direction="left" animation="blur">
+              <div className="group relative overflow-hidden rounded-2xl shadow-xl transition-all duration-500 hover:shadow-2xl">
                 <img
                   src={outsourcePain}
                   alt="中壢企業自聘資訊人員的人事成本與交接風險痛點分析"
-                  className="h-72 w-full object-cover lg:h-96"
+                  className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-96"
                 />
-                {/* Overlay badge */}
+                {/* Shine overlay on hover */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                {/* Overlay badge with slide-up */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <div className="rounded-xl bg-destructive/85 px-5 py-3 backdrop-blur-sm">
+                  <div className="rounded-xl bg-destructive/85 px-5 py-3 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-lg">
                     <p className="text-sm font-semibold text-white">
                       💸 自聘資訊人員年均成本超過 60 萬元
                     </p>
@@ -102,19 +104,20 @@ export function OutsourcingSection() {
               </div>
             </AnimatedSection>
 
-            {/* Cards */}
-            <AnimatedSection direction="right">
-              <div className="flex flex-col gap-5">
-                {painPoints.map((p) => (
+            {/* Cards with stagger */}
+            <AnimatedSection direction="right" animation="stagger">
+              <div className="flex flex-col gap-5 stagger-children">
+                {painPoints.map((p, i) => (
                   <div
                     key={p.title}
-                    className="flex items-start gap-4 rounded-xl border border-destructive/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md"
+                    className={`animate-stagger-reveal flex items-start gap-4 rounded-xl border border-destructive/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-destructive/40 hover:-translate-x-1`}
+                    style={{ animationDelay: `${i * 150}ms` }}
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-destructive/10">
-                      <p.icon className="h-5 w-5 text-destructive" />
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-destructive/10 transition-all duration-300 group-hover:scale-110">
+                      <p.icon className="h-5 w-5 text-destructive transition-transform duration-300" />
                     </div>
                     <div>
-                      <h4 className="mb-1 text-base font-bold text-card-foreground">
+                      <h4 className="mb-1 text-base font-bold text-card-foreground transition-colors duration-300 hover:text-destructive">
                         {p.title}
                       </h4>
                       <p className="text-sm leading-relaxed text-muted-foreground">
@@ -130,8 +133,8 @@ export function OutsourcingSection() {
 
         {/* Benefits */}
         <div>
-          <AnimatedSection className="mb-8 flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+          <AnimatedSection className="mb-8 flex items-center gap-3" animation="scale">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 animate-icon-bounce">
               <CheckCircle2 className="h-5 w-5 text-primary" />
             </div>
             <h3 className="text-xl font-bold text-foreground">
@@ -142,18 +145,19 @@ export function OutsourcingSection() {
           {/* Cards + Photo layout (reversed) */}
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             {/* Cards */}
-            <AnimatedSection direction="left">
-              <div className="flex flex-col gap-5">
-                {benefits.map((b) => (
+            <AnimatedSection direction="left" animation="stagger">
+              <div className="flex flex-col gap-5 stagger-children">
+                {benefits.map((b, i) => (
                   <div
                     key={b.title}
-                    className="flex items-start gap-4 rounded-xl border border-primary/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md"
+                    className={`animate-stagger-reveal flex items-start gap-4 rounded-xl border border-primary/20 bg-card p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/40 hover:-translate-x-1`}
+                    style={{ animationDelay: `${i * 150}ms` }}
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                      <b.icon className="h-5 w-5 text-primary" />
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 transition-all duration-300 hover:scale-110">
+                      <b.icon className="h-5 w-5 text-primary transition-transform duration-300" />
                     </div>
                     <div>
-                      <h4 className="mb-1 text-base font-bold text-card-foreground">
+                      <h4 className="mb-1 text-base font-bold text-card-foreground transition-colors duration-300 hover:text-primary">
                         {b.title}
                       </h4>
                       <p className="text-sm leading-relaxed text-muted-foreground">
@@ -165,17 +169,19 @@ export function OutsourcingSection() {
               </div>
             </AnimatedSection>
 
-            {/* Photo */}
-            <AnimatedSection direction="right">
-              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+            {/* Photo with hover zoom */}
+            <AnimatedSection direction="right" animation="blur">
+              <div className="group relative overflow-hidden rounded-2xl shadow-xl transition-all duration-500 hover:shadow-2xl">
                 <img
                   src={outsourceBenefit}
                   alt="天承資訊委外服務"
-                  className="h-72 w-full object-cover lg:h-96"
+                  className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-96"
                 />
+                {/* Shine overlay */}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 {/* Overlay badge */}
                 <div className="absolute bottom-4 left-4 right-4">
-                  <div className="rounded-xl bg-primary/85 px-5 py-3 backdrop-blur-sm">
+                  <div className="rounded-xl bg-primary/85 px-5 py-3 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-lg">
                     <p className="text-sm font-semibold text-primary-foreground">
                       ✅ 專業團隊，每月只需自聘費用的十分之一
                     </p>

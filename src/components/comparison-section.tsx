@@ -81,8 +81,8 @@ export function ComparisonSection() {
   return (
     <section id="comparison" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="mb-16 text-center">
-          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+        <AnimatedSection className="mb-16 text-center" animation="spring">
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary transition-transform duration-300 hover:scale-110">
             一目了然
           </span>
           <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
@@ -94,22 +94,28 @@ export function ComparisonSection() {
         </AnimatedSection>
 
         {/* Summary stat cards */}
-        <AnimatedSection className="mb-12 grid grid-cols-3 gap-4">
-          {summaryStats.map((s) => (
-            <div
+        <div className="grid grid-cols-3 gap-4 mb-12">
+          {summaryStats.map((s, i) => (
+            <AnimatedSection
               key={s.label}
-              className="flex flex-col items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 py-5 px-3 text-center shadow-sm"
+              delay={([0, 100, 200] as const)[i]}
+              animation="bounce"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15">
-                <s.icon className="h-5 w-5 text-primary" />
+              <div
+                key={s.label}
+                className="group flex flex-col items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 py-5 px-3 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/40 hover:bg-primary/10"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/25">
+                  <s.icon className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-110" />
+                </div>
+                <p className="text-xl font-bold text-primary transition-transform duration-300 group-hover:scale-105">{s.value}</p>
+                <p className="text-xs text-muted-foreground">{s.label}</p>
               </div>
-              <p className="text-xl font-bold text-primary">{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
-            </div>
+            </AnimatedSection>
           ))}
-        </AnimatedSection>
+        </div>
 
-        <AnimatedSection>
+        <AnimatedSection animation="blur">
           {/* Desktop table */}
           <div className="hidden overflow-hidden rounded-xl border border-border shadow-lg sm:block">
             <table className="w-full">
@@ -120,7 +126,7 @@ export function ComparisonSection() {
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/30">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-destructive/30 transition-transform duration-300 hover:rotate-12">
                         <X className="h-3.5 w-3.5" />
                       </div>
                       自行雇用
@@ -128,7 +134,7 @@ export function ComparisonSection() {
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-semibold">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20 transition-transform duration-300 hover:rotate-12">
                         <Check className="h-3.5 w-3.5" />
                       </div>
                       天承委外
@@ -140,14 +146,18 @@ export function ComparisonSection() {
                 {comparisonItems.map((item, i) => (
                   <tr
                     key={item.category}
-                    className={`border-t border-border transition-colors hover:bg-secondary/50 ${
-                      item.highlight ? "bg-primary/5" : i % 2 === 0 ? "bg-card" : "bg-background"
+                    className={`border-t border-border transition-all duration-300 group/row ${
+                      item.highlight
+                        ? "bg-primary/5 hover:bg-primary/10 animate-row-pulse"
+                        : i % 2 === 0
+                          ? "bg-card hover:bg-secondary/80"
+                          : "bg-background hover:bg-secondary/50"
                     }`}
                   >
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                          <item.icon className="h-4 w-4 text-primary" />
+                      <div className="flex items-center gap-3 transition-transform duration-300 group-hover/row:translate-x-1">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 transition-all duration-300 group-hover/row:scale-110 group-hover/row:bg-primary/20">
+                          <item.icon className="h-4 w-4 text-primary transition-transform duration-300 group-hover/row:rotate-12" />
                         </div>
                         <span className="text-sm font-medium text-foreground">
                           {item.category}
@@ -155,14 +165,14 @@ export function ComparisonSection() {
                       </div>
                     </td>
                     <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive/8 px-3 py-1">
-                        <X className="h-3.5 w-3.5 text-destructive" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive/8 px-3 py-1 transition-all duration-300 group-hover/row:bg-destructive/15">
+                        <X className="h-3.5 w-3.5 text-destructive transition-transform duration-300 group-hover/row:rotate-90" />
                         {item.inhouse}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center text-sm font-medium text-primary">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1">
-                        <Check className="h-3.5 w-3.5" />
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 transition-all duration-300 group-hover/row:bg-primary/20 group-hover/row:scale-105">
+                        <Check className="h-3.5 w-3.5 transition-transform duration-300 group-hover/row:scale-125" />
                         {item.outsource}
                       </span>
                     </td>
@@ -172,19 +182,20 @@ export function ComparisonSection() {
             </table>
           </div>
 
-          {/* Mobile cards */}
+          {/* Mobile cards with stagger */}
           <div className="flex flex-col gap-4 sm:hidden">
-            {comparisonItems.map((item) => (
+            {comparisonItems.map((item, i) => (
               <div
                 key={item.category}
-                className={`rounded-xl border p-4 ${
+                className={`animate-stagger-reveal rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${
                   item.highlight
                     ? "border-primary/30 bg-primary/5"
-                    : "border-border bg-card"
+                    : "border-border bg-card hover:border-primary/20"
                 }`}
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className="mb-3 flex items-center gap-2">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/10 transition-transform duration-300 hover:scale-110">
                     <item.icon className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <h4 className="text-sm font-bold text-foreground">
@@ -192,8 +203,8 @@ export function ComparisonSection() {
                   </h4>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <div className="flex items-start gap-2 rounded-lg bg-destructive/5 px-3 py-2">
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                  <div className="flex items-start gap-2 rounded-lg bg-destructive/5 px-3 py-2 transition-all duration-300 hover:bg-destructive/10">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive transition-transform duration-300 hover:rotate-12" />
                     <div>
                       <span className="text-xs font-medium text-muted-foreground">
                         自行雇用
@@ -201,8 +212,8 @@ export function ComparisonSection() {
                       <p className="text-sm text-foreground">{item.inhouse}</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2 rounded-lg bg-primary/5 px-3 py-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <div className="flex items-start gap-2 rounded-lg bg-primary/5 px-3 py-2 transition-all duration-300 hover:bg-primary/10">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary transition-transform duration-300 hover:scale-125" />
                     <div>
                       <span className="text-xs font-medium text-muted-foreground">
                         天承委外
@@ -219,9 +230,9 @@ export function ComparisonSection() {
         </AnimatedSection>
 
         {/* Bottom CTA */}
-        <AnimatedSection className="mt-12 text-center">
-          <div className="rounded-xl border border-primary/20 bg-primary/5 p-8">
-            <h3 className="mb-2 text-xl font-bold text-foreground">
+        <AnimatedSection className="mt-12 text-center" animation="spring">
+          <div className="group/cta rounded-xl border border-primary/20 bg-primary/5 p-8 transition-all duration-500 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1">
+            <h3 className="mb-2 text-xl font-bold text-foreground transition-colors duration-300 group-hover/cta:text-primary">
               每月省下數萬元，立即開始委外
             </h3>
             <p className="mb-6 text-muted-foreground">
@@ -233,9 +244,10 @@ export function ComparisonSection() {
                 e.preventDefault()
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }}
-              className="inline-block rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-105 hover:shadow-lg"
+              className="group relative inline-block overflow-hidden rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
-              立即諮詢
+              <span className="relative z-10">立即諮詢</span>
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             </a>
           </div>
         </AnimatedSection>

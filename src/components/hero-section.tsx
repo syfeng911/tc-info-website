@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useMemo } from "react"
 import { ChevronDown, Shield, Clock, Wrench, ChevronLeft, ChevronRight } from "lucide-react"
 import fbQr from "@/assets/fb-qr.png"
 import lineQr from "@/assets/line-qr.png"
@@ -54,13 +54,51 @@ const slides = [
   },
 ]
 
+/* Floating particles for hero background */
+function HeroParticles() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        size: 2 + Math.random() * 4,
+        animClass: `animate-particle-${(i % 5) + 1}`,
+        duration: `${6 + Math.random() * 8}s`,
+        delay: `${Math.random() * 5}s`,
+        opacity: 0.15 + Math.random() * 0.2,
+      })),
+    []
+  )
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className={`absolute rounded-full bg-white/20 ${p.animClass}`}
+          style={{
+            left: p.left,
+            bottom: `-${p.size}px`,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            animationDuration: p.duration,
+            animationDelay: p.delay,
+            opacity: p.opacity,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 export function HeroSection() {
   const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(0)
   const [transitioning, setTransitioning] = useState(false)
 
   useEffect(() => {
-    setVisible(true)
+    const t = setTimeout(() => setVisible(true), 200)
+    return () => clearTimeout(t)
   }, [])
 
   const goTo = useCallback((index: number) => {
@@ -69,15 +107,15 @@ export function HeroSection() {
     setTimeout(() => {
       setCurrent(index)
       setTransitioning(false)
-    }, 400)
+    }, 500)
   }, [transitioning])
 
   const prev = () => goTo((current - 1 + slides.length) % slides.length)
   const next = useCallback(() => goTo((current + 1) % slides.length), [current, goTo])
 
-  // Auto-advance every 5s
+  // Auto-advance every 6s
   useEffect(() => {
-    const timer = setInterval(next, 5000)
+    const timer = setInterval(next, 6000)
     return () => clearInterval(timer)
   }, [next])
 
@@ -92,27 +130,41 @@ export function HeroSection() {
       id="hero"
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
-      {/* Background slides */}
+      {/* Background slides with Ken Burns */}
       {slides.map((s, i) => (
         <div
           key={i}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
+          className="absolute inset-0 transition-opacity duration-700"
           style={{
-            backgroundImage: `url('${s.bg}')`,
             opacity: i === current ? 1 : 0,
           }}
-        />
+        >
+          <div
+            className={`absolute inset-[-10%] bg-cover bg-center bg-no-repeat ${
+              i === current ? "animate-ken-burns" : ""
+            }`}
+            style={{
+              backgroundImage: `url('${s.bg}')`,
+              animationDuration: "20s",
+            }}
+          />
+        </div>
       ))}
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/65 via-foreground/45 to-foreground/75" />
 
-      {/* Slide indicators */}
+      {/* Floating particles */}
+      <HeroParticles />
+
+      {/* Slide indicators with animated fill */}
       <div className="absolute bottom-20 left-1/2 z-20 flex -translate-x-1/2 gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === current ? "w-8 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              i === current
+                ? "w-8 bg-white shadow-lg shadow-white/30"
+                : "w-1.5 bg-white/40 hover:bg-white/70 hover:w-3"
             }`}
             aria-label={`切換到第 ${i + 1} 張`}
           />
@@ -122,14 +174,14 @@ export function HeroSection() {
       {/* Prev / Next arrows */}
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all hover:bg-black/40 hover:text-white sm:left-6"
+        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-black/40 hover:text-white hover:scale-110 sm:left-6"
         aria-label="上一張"
       >
         <ChevronLeft className="h-6 w-6" />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all hover:bg-black/40 hover:text-white sm:right-36 lg:right-40"
+        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-black/40 hover:text-white hover:scale-110 sm:right-36 lg:right-40"
         aria-label="下一張"
       >
         <ChevronRight className="h-6 w-6" />
@@ -137,53 +189,57 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        {/* Tag badge */}
         <div
-          className={`transition-all duration-1000 ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          className={`transition-all duration-700 ${
+            visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm transition-transform duration-300 hover:scale-105">
             <div className="h-2 w-2 animate-pulse rounded-full bg-primary" />
             <span
               key={`tag-${current}`}
-              className={`text-sm font-medium text-white/90 transition-opacity duration-400 ${transitioning ? "opacity-0" : "opacity-100"}`}
+              className={`text-sm font-medium text-white/90 transition-all duration-500 ${transitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}`}
             >
               {slide.tag}
             </span>
           </div>
         </div>
 
+        {/* Title */}
         <h1
-          className={`mb-6 text-balance text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl transition-all duration-1000 delay-200 ${
+          className={`mb-6 text-balance text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl transition-all duration-700 delay-200 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
           <span
             key={`title-${current}`}
-            className={`block transition-all duration-400 ${transitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"}`}
+            className={`block transition-all duration-500 ${transitioning ? "opacity-0 translate-y-4 scale-95" : "opacity-100 translate-y-0 scale-100"}`}
           >
             {slide.title}
           </span>
           <span
             key={`subtitle-${current}`}
-            className={`block transition-all duration-500 delay-100 ${transitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"}`}
+            className={`block transition-all duration-500 delay-150 ${transitioning ? "opacity-0 translate-y-4 scale-95" : "opacity-100 translate-y-0 scale-100"}`}
             style={{ color: "hsl(38, 95%, 68%)" }}
           >
             {slide.subtitle}
           </span>
         </h1>
 
+        {/* Description */}
         <p
           key={`desc-${current}`}
-          className={`mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-white/80 sm:text-xl transition-all duration-1000 delay-500 ${
+          className={`mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-white/80 sm:text-xl transition-all duration-700 delay-500 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          } ${transitioning ? "opacity-0" : ""}`}
+          } ${transitioning ? "opacity-0 translate-y-4" : ""}`}
         >
           {slide.desc}
         </p>
 
+        {/* CTA Buttons */}
         <div
-          className={`flex flex-col items-center justify-center gap-4 sm:flex-row transition-all duration-1000 delay-700 ${
+          className={`flex flex-col items-center justify-center gap-4 sm:flex-row transition-all duration-700 delay-700 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
@@ -193,9 +249,10 @@ export function HeroSection() {
               e.preventDefault()
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
             }}
-            className="rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
+            className="group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-xl"
           >
-            免費諮詢
+            <span className="relative z-10">免費諮詢</span>
+            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
           </a>
           <a
             href="#outsourcing"
@@ -203,15 +260,17 @@ export function HeroSection() {
               e.preventDefault()
               document.getElementById("outsourcing")?.scrollIntoView({ behavior: "smooth" })
             }}
-            className="rounded-full border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+            className="group rounded-full border border-white/30 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:scale-105"
           >
-            了解委外優勢
+            <span className="relative inline-block">
+              了解委外優勢
+            </span>
           </a>
         </div>
 
-        {/* Feature badges */}
+        {/* Feature badges with stagger animation */}
         <div
-          className={`mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-10 transition-all duration-1000 delay-1000 ${
+          className={`mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-10 transition-all duration-700 delay-1000 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
@@ -219,9 +278,13 @@ export function HeroSection() {
             { icon: Shield, label: "專業可靠" },
             { icon: Clock, label: "36小時內到場" },
             { icon: Wrench, label: "遠端即時支援" },
-          ].map((item) => (
-            <div key={item.label} className="flex items-center gap-2 text-white/70">
-              <item.icon className="h-5 w-5" style={{ color: "hsl(38, 95%, 68%)" }} />
+          ].map((item, i) => (
+            <div
+              key={item.label}
+              className={`flex items-center gap-2 text-white/70 transition-all duration-500 hover:text-white hover:scale-110`}
+              style={{ transitionDelay: `${1100 + i * 150}ms` }}
+            >
+              <item.icon className="h-5 w-5 animate-float-sm" style={{ color: "hsl(38, 95%, 68%)" }} />
               <span className="text-sm font-medium">{item.label}</span>
             </div>
           ))}
@@ -249,7 +312,7 @@ export function HeroSection() {
               style={{ boxShadow: "inset 0 0 10px 2px rgba(24,119,242,0.3)" }}
             />
           </div>
-          <span className="rounded-full bg-[#1877F2]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+          <span className="rounded-full bg-[#1877F2]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
             Facebook
           </span>
         </a>
@@ -272,19 +335,24 @@ export function HeroSection() {
               style={{ boxShadow: "inset 0 0 10px 2px rgba(6,199,85,0.3)" }}
             />
           </div>
-          <span className="rounded-full bg-[#06C755]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm">
+          <span className="rounded-full bg-[#06C755]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
             LINE
           </span>
         </a>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator with improved animation */}
       <button
         onClick={scrollToServices}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/60 transition-colors hover:text-white"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 group text-white/60 transition-colors duration-300 hover:text-white"
         aria-label="Scroll to services"
       >
-        <ChevronDown className="h-8 w-8" />
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-xs text-white/40 transition-all duration-300 group-hover:text-white/70 group-hover:translate-y-0.5">
+            向下探索
+          </span>
+          <ChevronDown className="h-8 w-8 animate-bounce transition-transform duration-300 group-hover:scale-110" />
+        </div>
       </button>
     </section>
   )

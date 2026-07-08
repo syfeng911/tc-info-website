@@ -47,8 +47,8 @@ export function WebsiteSection() {
     <section id="website" className="bg-secondary py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <AnimatedSection className="mb-16 text-center">
-          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+        <AnimatedSection className="mb-16 text-center" animation="spring">
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary transition-transform duration-300 hover:scale-110">
             網站架設服務
           </span>
           <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
@@ -65,15 +65,18 @@ export function WebsiteSection() {
             {features.map((f, i) => (
               <AnimatedSection
                 key={f.title}
-                delay={([0, 200, 400, 0, 200, 400] as const)[i]}
+                delay={([0, 100, 200, 300, 400, 500] as const)[i]}
+                animation="spring"
                 className="h-full"
               >
-                <div className="group flex h-full gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <f.icon className="h-5 w-5" />
+                <div className="group relative flex h-full gap-4 overflow-hidden rounded-xl border border-border bg-card p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/30">
+                  {/* Shine overlay */}
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 group-hover:translate-x-full rounded-xl" />
+                  <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 group-hover:rotate-[-3deg]">
+                    <f.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-bold text-card-foreground">{f.title}</h3>
+                    <h3 className="mb-1 font-bold text-card-foreground transition-colors duration-300 group-hover:text-primary">{f.title}</h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
                   </div>
                 </div>
@@ -82,11 +85,11 @@ export function WebsiteSection() {
           </div>
 
           {/* Pricing card - 1/3 width */}
-          <AnimatedSection delay={200} className="lg:col-span-1 flex flex-col">
-            <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10">
+          <AnimatedSection delay={200} animation="scale" className="lg:col-span-1 flex flex-col">
+            <div className="group flex flex-1 flex-col overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-xl shadow-primary/10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl animate-glow-pulse">
               {/* Popular banner */}
-              <div className="flex items-center justify-center gap-2 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
-                <Star className="h-4 w-4" />
+              <div className="flex items-center justify-center gap-2 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 group-hover:bg-primary/90">
+                <Star className="h-4 w-4 animate-icon-bounce" />
                 超值全包方案
               </div>
 
@@ -94,14 +97,14 @@ export function WebsiteSection() {
                 <p className="mb-1 text-sm font-medium text-muted-foreground">年費方案</p>
                 <div className="mb-1 flex items-baseline gap-1">
                   <span className="text-lg text-muted-foreground">$</span>
-                  <span className="text-6xl font-bold text-primary">10,000</span>
+                  <span className="text-6xl font-bold text-primary transition-all duration-300 group-hover:scale-105 origin-left">10,000</span>
                 </div>
                 <p className="mb-6 text-sm text-muted-foreground">/ 年，六大服務全包含</p>
 
                 <ul className="mb-7 flex flex-col gap-3">
                   {included.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground transition-all duration-300 group-hover:translate-x-1">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover:scale-125" />
                       {item}
                     </li>
                   ))}
@@ -113,15 +116,19 @@ export function WebsiteSection() {
                     e.preventDefault()
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
                   }}
-                  className="block w-full rounded-full bg-primary py-3 text-center text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
+                  className="group/btn relative block w-full overflow-hidden rounded-full bg-primary py-3 text-center text-sm font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
                 >
-                  立即諮詢方案
+                  <span className="relative z-10">立即諮詢方案</span>
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
                 </a>
 
                 <p className="mt-4 text-center text-xs text-muted-foreground">
                   網域及 VPS 主機費用已含在年費中
                 </p>
               </div>
+
+              {/* Bottom accent */}
+              <div className="h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
             </div>
           </AnimatedSection>
         </div>

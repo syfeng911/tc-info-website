@@ -50,12 +50,12 @@ export function ServicesSection() {
   return (
     <section id="services" className="bg-background py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="mb-16 text-center">
-          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+        <AnimatedSection className="mb-16 text-center" animation="spring">
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary transition-transform duration-300 hover:scale-110">
             服務項目
           </span>
           <h2 className="mb-4 text-balance text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-            全方位的資訊服務
+            <span className="shimmer-text">全方位的資訊服務</span>
           </h2>
           <p className="mx-auto max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
             從電腦維修到伺服器維護，從網路架構到資訊委外，一站式解決您的所有IT需求
@@ -66,31 +66,37 @@ export function ServicesSection() {
           {services.map((svc, i) => (
             <AnimatedSection
               key={svc.title}
-              delay={i < 3 ? ([0, 200, 400] as const)[i] : ([0, 200, 400] as const)[i - 3]}
+              delay={([0, 100, 200, 300, 400, 500] as const)[i]}
+              animation="spring"
             >
-              <div className="group relative h-full overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                {/* Background image */}
+              <div className="group relative h-full overflow-hidden rounded-xl border border-border bg-card shadow-sm card-3d">
+                {/* Background image with zoom overlay */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={svc.image}
                     alt={`${svc.title} - 天承資訊提供桃園中壢、平鎮專業服務`}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                  <div className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-110">
-                    <svc.icon className="h-6 w-6" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent transition-opacity duration-300 group-hover:opacity-80" />
+                  {/* Shine sweep on hover */}
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                  <div className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-3deg] group-hover:shadow-xl">
+                    <svc.icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="mb-2 text-lg font-bold text-card-foreground">
+                  <h3 className="mb-2 text-lg font-bold text-card-foreground transition-colors duration-300 group-hover:text-primary">
                     {svc.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {svc.desc}
                   </p>
                 </div>
+
+                {/* Bottom accent line */}
+                <div className="h-1 w-0 bg-primary transition-all duration-500 group-hover:w-full rounded-b-xl" />
               </div>
             </AnimatedSection>
           ))}
