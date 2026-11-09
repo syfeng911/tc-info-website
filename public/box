@@ -113,8 +113,6 @@ function Invoke-RoboMouseInstall {
     catch {
         Write-Host "RoboMouse 安裝失敗：$($_.Exception.Message)" -ForegroundColor Red
     }
-
-    Pause
 }
 
 # --- 2. 選單與清單 ---
