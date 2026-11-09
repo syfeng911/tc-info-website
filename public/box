@@ -51,6 +51,72 @@ function Invoke-SystemCleanup {
     Write-Host "清理完成！" -ForegroundColor Green ; pause
 }
 
+
+function Invoke-RoboMouseInstall {
+    $repo = "timothydodd/RoboMouse"
+    $workDir = Join-Path $env:TEMP "RoboMouse-Installer"
+
+    Write-Host "`n[任務] 正在下載 RoboMouse GitHub 官方版..." -ForegroundColor Yellow
+
+    try {
+        New-Item -ItemType Directory -Path $workDir -Force | Out-Null
+
+        # 取得 GitHub 最新 Release
+        $headers = @{
+            "User-Agent" = "TC-Info-Maintenance-Tool"
+        }
+
+        $release = Invoke-RestMethod `
+            -Uri "https://api.github.com/repos/$repo/releases/latest" `
+            -Headers $headers
+
+        # 尋找完整安裝程式（包含 Desktop Service）
+        $asset = $release.assets |
+            Where-Object {
+                $_.name -match '^RoboMouse-Setup-.*\.exe$'
+            } |
+            Select-Object -First 1
+
+        if (-not $asset) {
+            throw "GitHub Release 中找不到 RoboMouse-Setup 安裝檔。"
+        }
+
+        $installer = Join-Path $workDir $asset.name
+
+        Write-Host "最新版本：$($release.tag_name)" -ForegroundColor Cyan
+        Write-Host "下載檔案：$($asset.name)" -ForegroundColor Cyan
+
+        Invoke-WebRequest `
+            -Uri $asset.browser_download_url `
+            -OutFile $installer `
+            -Headers $headers
+
+        if (-not (Test-Path $installer)) {
+            throw "安裝檔下載失敗。"
+        }
+
+        Write-Host "下載完成，正在啟動安裝程式..." -ForegroundColor Yellow
+
+        $process = Start-Process `
+            -FilePath $installer `
+            -Verb RunAs `
+            -Wait `
+            -PassThru
+
+        if ($process.ExitCode -eq 0) {
+            Write-Host "RoboMouse 安裝程式已完成。" -ForegroundColor Green
+        }
+        else {
+            Write-Host "安裝程式結束代碼：$($process.ExitCode)" -ForegroundColor Yellow
+        }
+    }
+    catch {
+        Write-Host "RoboMouse 安裝失敗：$($_.Exception.Message)" -ForegroundColor Red
+    }
+
+    Pause
+}
+
 # --- 2. 選單與清單 ---
 
 $softwareMap = [ordered]@{
@@ -61,6 +127,7 @@ $softwareMap = [ordered]@{
     "LINE"     = "XPFCC4CD725961"
     "OpenShell" = "Open-Shell.Open-Shell-Menu"
     "PotPlayer" = "Daum.PotPlayer"
+    "RoboMouse" = "GITHUB:RoboMouse"
     "Rustdesk" = "RustDesk.RustDesk"
     "Steam" = "Valve.Steam"
     "WinRAR"   = "RARLab.WinRAR"   
@@ -123,12 +190,25 @@ while ($true) {
             if ($Global:MenuResult -eq ($opts.Count - 2)) {
                 $sel = @()
                 for($i=0; $i -lt $names.Count; $i++) { if($Global:CheckStates[$i]){ $sel += $names[$i] } }
+                
                 foreach ($n in $sel) {
                     $id = $softwareMap[$n]
-                    $src = if ($n -eq "LINE") { "msstore" } else { "winget" }
-                    Write-Host "正在安裝: $n..." -ForegroundColor Cyan
-                    winget install --id $id -s $src -e --accept-package-agreements --accept-source-agreements
+                
+                    Write-Host "`n正在安裝: $n..." -ForegroundColor Cyan
+                
+                    # GitHub 官方版特殊安裝
+                    if ($id -eq "GITHUB:RoboMouse") {
+                        Invoke-RoboMouseInstall
+                    }
+                    else {
+                        $src = if ($n -eq "LINE") { "msstore" } else { "winget" }
+                
+                        winget install --id $id -s $src -e `
+                            --accept-package-agreements `
+                            --accept-source-agreements
+                    }
                 }
+
                 pause ; break
             }
         }
