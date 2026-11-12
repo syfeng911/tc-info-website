@@ -97,17 +97,21 @@ function Invoke-RoboMouseInstall {
 
         Write-Host "下載完成，正在啟動安裝程式..." -ForegroundColor Yellow
 
+       $logFile = Join-Path $workDir "install.log"
+
         $process = Start-Process `
             -FilePath $installer `
+            -ArgumentList "/SILENT /SUPPRESSMSGBOXES /NORESTART /SP- /LOG=`"$logFile`"" `
             -Verb RunAs `
             -Wait `
             -PassThru
-
+        
         if ($process.ExitCode -eq 0) {
-            Write-Host "RoboMouse 安裝程式已完成。" -ForegroundColor Green
+            Write-Host "RoboMouse 安裝成功！" -ForegroundColor Green
         }
         else {
-            Write-Host "安裝程式結束代碼：$($process.ExitCode)" -ForegroundColor Yellow
+            Write-Host "安裝失敗或異常結束，代碼：$($process.ExitCode)" -ForegroundColor Red
+            Write-Host "日誌：$logFile" -ForegroundColor Yellow
         }
     }
     catch {
